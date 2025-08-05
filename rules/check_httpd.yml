@@ -1,0 +1,13 @@
+---
+- name: Check if httpd is running
+  hosts: localhost
+  sources:
+    - ansible.eda.time:
+        delay: 10
+  rules:
+    - name: Is httpd down?
+      condition: event.meta.hostname is defined
+      action:
+        run_playbook:
+          name: check_and_restart_httpd.yml
+

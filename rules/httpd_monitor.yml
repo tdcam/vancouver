@@ -1,0 +1,15 @@
+---
+- name: Monitor httpd process logs
+  hosts: localhost
+  sources:
+    - name: watch system logs
+      ansible.eda.journald:
+        match:
+          _SYSTEMD_UNIT: httpd.service
+  rules:
+    - name: httpd service stopped
+      condition: event.MESSAGE is search("stop") or event.MESSAGE is search("killed")
+      action:
+        run_playbook:
+          name: restart_httpd.yml
+

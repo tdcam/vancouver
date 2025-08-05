@@ -1,0 +1,9 @@
+all:
+  hosts:
+    localhost:
+    web1.example.com:
+  children:
+    mywebservers:
+      hosts:
+        web1.example.com:
+

@@ -1,0 +1,16 @@
+---
+- name: Check and restart httpd if needed
+  hosts: mywebservers
+  become: yes
+  tasks:
+    - name: Check if httpd is running
+      shell: pgrep -x httpd
+      register: result
+      ignore_errors: true
+
+    - name: Restart httpd if not running
+      service:
+        name: httpd
+        state: restarted
+      when: result.rc != 0
+

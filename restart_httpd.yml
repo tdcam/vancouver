@@ -1,0 +1,10 @@
+---
+- name: Restart Apache HTTPD
+  hosts: mywebservers
+  become: yes
+  tasks:
+    - name: Ensure httpd is running
+      service:
+        name: httpd
+        state: restarted
+
